@@ -66,7 +66,7 @@ export default function CurrencyHistory({ baseCurrency, targetCurrency }) {
       <div>
         <Row className="mb-3 ">
         <Form.Group as={Col} xs={12} md={3}>
-
+          {/* filter graph */}
             <Form.Select onChange={(e) => setTimeFrame(e.target.value)}>
               <option value="7days">7 days</option>
               <option value="1month">1 month</option>
@@ -85,6 +85,7 @@ export default function CurrencyHistory({ baseCurrency, targetCurrency }) {
           </div>
         </Col>
         <Col xs={12}>
+          {/* filter table */}
         <FilterTable />
         </Col>
         </Row>
