@@ -1,102 +1,94 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import 'chartjs-adapter-date-fns';
-import { Chart } from 'chart.js';
+import React, { useState, useEffect } from "react";
+import { Line } from "react-chartjs-2";
+import { Chart } from "chart.js";
+import {
+  CategoryScale,
+  LinearScale,
+  TimeScale,
+  PointElement,
+  LineElement,
+} from "chart.js";
 
-const ExchangeRateChart = ({ baseCurrency, targetCurrency }) => {
-  const [data, setData] = useState({
-    labels: [], // Array of labels (dates)
+import "chartjs-adapter-date-fns";
+import FilterTable from "./filterTable";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+
+
+Chart.register(
+  CategoryScale,
+  LinearScale,
+  TimeScale,
+  PointElement,
+  LineElement
+);
+
+export default function CurrencyHistory({ baseCurrency, targetCurrency }) {
+  const [timeFrame, setTimeFrame] = useState("7days");
+  const [historicalData, setHistoricalData] = useState([]);
+
+  useEffect(() => {
+    setHistoricalData([
+      { date: "2023-09-26", rate: 0.4 },
+      { date: "2023-09-27", rate: 0.3 },
+      { date: "2023-09-28", rate: 0.1 },
+      { date: "2023-09-29", rate: 0.2 },
+      { date: "2023-09-30", rate: 0.6 },
+      { date: "2023-10-01", rate: 1.1 },
+      { date: "2023-10-02", rate: 1.2 },
+      { date: "2023-10-03", rate: 1.3 },
+      { date: "2023-10-04", rate: 1.4 },
+      { date: "2023-10-05", rate: 2.1 },
+      { date: "2023-10-06", rate: 2.2 },
+      { date: "2023-10-07", rate: 2.3 },
+      { date: "2023-10-08", rate: 2.4 },
+
+    ]);
+  }, [baseCurrency, targetCurrency, timeFrame]);
+
+  const chartData = {
+    labels: historicalData.map((d) => new Date(d.date)),
     datasets: [
       {
-        label: `${baseCurrency} to ${targetCurrency}`,
-        data: [], // Array of data points
+        label: `Exchange rate for ${baseCurrency} to ${targetCurrency}`,
+        data: historicalData.map((d) => d.rate),
         fill: false,
-        borderColor: 'rgb(75, 192, 192)',
+        backgroundColor: "blue",
+        borderColor: "blue",
         tension: 0.1,
       },
     ],
-  });
-
-  const [filter, setFilter] = useState('7days'); // Default filter is 7 days
-  const [chartInstance, setChartInstance] = useState(null); // Store chart instance
-
-  useEffect(() => {
-    // Define the time range for the selected filter
-    const timeRanges = {
-      '7days': '7',
-      '1month': '30',
-      '6months': '180',
-    };
-
-    // Destroy the previous chart instance, if it exists
-    if (chartInstance) {
-      chartInstance.destroy();
-    }
-
-    // Fetch historical exchange rate data based on the selected filter
-    axios
-      .get(`https://api.currencyapi.com/v3/latest?apikey=cur_live_00eeUbZqHWFk1APyodtoCym3Vz57HUD1p6Qea2Ba`)
-      .then(response => {
-        // Assuming the API response contains an array of data points with dates and exchange rates
-        const historicalData = response.data;
-
-        // Extract dates and exchange rates from the historical data
-        const dates = historicalData.map(item => item.date);
-        const exchangeRates = historicalData.map(item => item.rate);
-
-        // Update the state with the retrieved data
-        setData({
-          ...data,
-          labels: dates,
-          datasets: [
-            {
-              ...data.datasets[0],
-              data: exchangeRates,
-            },
-          ],
-        });
-
-        // Create a new chart instance and store it
-        const ctx = document.getElementById('chart').getContext('2d');
-        const newChartInstance = new Chart(ctx, {
-          type: 'line',
-          data: data,
-          options: {
-            scales: {
-              x: {
-                type: 'time',
-                time: {
-                  unit: 'day',
-                },
-              },
-              y: {
-                beginAtZero: true,
-              },
-            },
-          },
-        });
-        setChartInstance(newChartInstance);
-      })
-      .catch(error => {
-        console.error('Error fetching historical data:', error);
-      });
-  }, [baseCurrency, targetCurrency, filter]);
-
-  // Rest of your component code
+  };
 
   return (
     <div>
-      <h2>Historical Exchange Rate:</h2>
       <div>
-        <select onChange={e => setFilter(e.target.value)} value={filter}>
-          <option value="7days">7 Days</option>
-          <option value="1month">1 Month</option>
-          <option value="6months">6 Months</option>
-        </select>
+        <Row className="mb-3 ">
+        <Form.Group as={Col} xs={12} md={3}>
+
+            <Form.Select onChange={(e) => setTimeFrame(e.target.value)}>
+              <option value="7days">7 days</option>
+              <option value="1month">1 month</option>
+              <option value="6months">6 months</option>
+            </Form.Select>
+          </Form.Group>
+          <Col xs={12} md={9}>
+          <div className="chartContainer">
+            <Line
+              data={chartData}
+              options={{
+                maintainAspectRatio: false,
+                scales: { x: { type: "time" } },
+              }}
+            />
+          </div>
+        </Col>
+        <Col xs={12}>
+        <FilterTable />
+        </Col>
+        </Row>
       </div>
-      <canvas id="chart" width={400} height={200}></canvas>
     </div>
   );
-};
-
-export default ExchangeRateChart;
+}

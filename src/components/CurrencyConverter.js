@@ -3,30 +3,40 @@ import axios from "axios";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-
-const CurrencyConverter = () => {
+import Spinner from "react-bootstrap/Spinner";
+import Card from 'react-bootstrap/Card';
+export default function CurrencyConverter() {
   const [baseCurrency, setBaseCurrency] = useState("USD");
   const [targetCurrency, setTargetCurrency] = useState("EUR");
   const [exchangeRate, setExchangeRate] = useState(null);
+  const [availableCurrencies, setAvailableCurrencies] = useState([]);
+// currencies api
+  useEffect(() => {
+    const fetchAvailableCurrencies = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.freecurrencyapi.com/v1/currencies?apikey=fca_live_JeB5ukJurHstzeYkvQdO9Va7yihtOI7Snd6VQMif"
+        );
 
-  // Define a list of predefined currencies
-  const predefinedCurrencies = [
-    "USD",
-    "EUR",
-    "GBP",
-    "JPY",
-    "AUD",
-    "BGN", // Add more currencies as needed
-  ];
+        if (response.data && response.data.data) {
+          const currencies = Object.keys(response.data.data);
+          setAvailableCurrencies(currencies);
+        }
+      } catch (error) {
+        console.error("Error fetching available currencies:", error);
+      }
+    };
 
+    fetchAvailableCurrencies();
+  }, []);
+// base currency and target currency api
   useEffect(() => {
     const fetchExchangeRate = async () => {
       try {
         const response = await axios.get(
-          "https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_JeB5ukJurHstzeYkvQdO9Va7yihtOI7Snd6VQMif"
+          `https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_JeB5ukJurHstzeYkvQdO9Va7yihtOI7Snd6VQMif&base_currency=${baseCurrency}&currencies=${targetCurrency}`
         );
 
-        // Check if the response contains data and if the targetCurrency exists as a property
         if (
           response.data &&
           response.data.data &&
@@ -46,49 +56,56 @@ const CurrencyConverter = () => {
 
   return (
     <div>
-        <Row className="mb-3">
-          <Form.Group as={Col}>
-            <Form.Label>Base Currency:</Form.Label>
-       
+      <Row className="mb-3">
+        <Form.Group as={Col} xs={12} md={6}>
+          <Form.Label>Base Currency:</Form.Label>
+              {/* base currency selctor */}
+          {Array.isArray(availableCurrencies) && (
             <Form.Select
               onChange={(e) => setBaseCurrency(e.target.value)}
               value={baseCurrency}
             >
-              {predefinedCurrencies.map((currency) => (
-                <option key={currency} value={currency}>
-                  {currency}
-                </option>
-              ))}
-                </Form.Select>
-          </Form.Group>
-
-          <Form.Group as={Col}>
-          <Form.Label>Target Currency:</Form.Label>
-          <Form.Select
-              onChange={(e) => setTargetCurrency(e.target.value)}
-              value={targetCurrency}
-            >
-              {predefinedCurrencies.map((currency) => (
+              {availableCurrencies.map((currency) => (
                 <option key={currency} value={currency}>
                   {currency}
                 </option>
               ))}
             </Form.Select>
-          </Form.Group>
-        </Row>
-      <Row>
-      <Col>
-      {exchangeRate !== null ? (
-        <p>
-          1 {baseCurrency} = {exchangeRate} {targetCurrency}
-        </p>
-      ) : (
-        <p>Loading...</p>
-      )}
-       </Col>
-         </Row>
+          )}
+        </Form.Group>
+
+        <Form.Group as={Col} xs={12} md={6}>
+          <Form.Label>Target Currency:</Form.Label>
+            {/* target currency selctor */}
+          {Array.isArray(availableCurrencies) && (
+            <Form.Select
+              onChange={(e) => setTargetCurrency(e.target.value)}
+              value={targetCurrency}
+            >
+              {availableCurrencies.map((currency) => (
+                <option key={currency} value={currency}>
+                  {currency}
+                </option>
+              ))}
+            </Form.Select>
+          )}
+        </Form.Group>
+      </Row>
+      <Row className="lgBtMargin">
+        <Col>
+        {/* currency exhcnage rate showing block */}
+          {exchangeRate !== null ? (
+            <Card body>
+            <h3 className="textCenter">
+              1 {baseCurrency} = {exchangeRate} {targetCurrency}
+            </h3></Card>
+          ) : (
+            <Spinner animation="border" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          )}
+        </Col>
+      </Row>
     </div>
   );
-};
-
-export default CurrencyConverter;
+}

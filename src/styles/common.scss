@@ -1,0 +1,39 @@
+.textCenter {
+    text-align: center;
+}
+.content {
+    box-shadow: 0 10px 20px 0 $gray;
+    padding: 30px;
+    border-radius: 15px;
+}
+.form-label {
+    font-size: $small;
+}
+.headerText {
+    font-size: $large;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.form-select {
+    font-size: $medium;
+}
+.mdBtMargin {
+ margin-bottom: 15px;;
+}
+.lgBtMargin {
+    margin-bottom: 30px;;
+   }
+.chartContainer {
+    height: 500px;
+}
+.sortTableHeader {
+    .svg-inline--fa {
+        margin-left: 5px;
+        &.fa-sort-up {
+            top: 5px;
+            position: relative;
+        }
+        
+      
+    }
+}
