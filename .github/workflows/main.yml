@@ -50,4 +50,4 @@ jobs:
           username: '${{ secrets.FTP_USERNAME }}'
           password: '${{ secrets.FTP_PASSWORD }}'
           local-dir: build/
-          server-dir: folder/on/your/server/to/store/
+          server-dir: currency-converter.bolgodalakesrilanka.com/
