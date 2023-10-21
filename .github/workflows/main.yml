@@ -42,7 +42,7 @@ jobs:
 
       - name: List output files
         run: find build/ -print
-
+        
       - name: Deploy to ftp server
         uses: SamKirkland/FTP-Deploy-Action@4.1.0
         with:
@@ -50,4 +50,4 @@ jobs:
           username: '${{ secrets.FTP_USERNAME }}'
           password: '${{ secrets.FTP_PASSWORD }}'
           local-dir: build/
-          server-dir: folder/on/your/server/to/store/
+          server-dir: Currency-Converter/
