@@ -81,6 +81,12 @@ body {
     .card-body {
         background-color: $purple;
         color: $white;
+        h3 {
+            font-size: $medium;
+        }
+    }
+    table {
+        font-size: $medium;
     }
     h1,h2 {
         margin-bottom: 40px !important;
