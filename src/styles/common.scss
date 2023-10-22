@@ -8,13 +8,35 @@
     padding: 30px;
     border-radius: 15px;
 }
-.currencyHistoryContainer {
-
+.currencyHistorySection {
+    margin: 40px;
+    .currencyHistoryBlock {
+        border: 1px solid $gray;
+        padding: 92px 30px 40px;
+        border-radius: 15px;
+    }
+}
+.filterTableSection {
+    background: #330065;
+    .headerTextSecondary {
+        color: #fff;
+        padding-top: 30px;
+    }
+    .filterTableBlock {
+    padding: 40px 30px 40px;
+    width: 100%;
+    max-width: 100%;
+    }
 }
 .form-label {
     font-size: $small;
 }
 .headerText {
+    font-size: $large;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.headerTextSecondary {
     font-size: $large;
     margin-bottom: 20px;
     text-align: center;

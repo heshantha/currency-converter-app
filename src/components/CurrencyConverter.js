@@ -57,62 +57,68 @@ export default function CurrencyConverter() {
 
   return (
     <>
-    <Container>
-    <div className='currencyConverterBlock' data-testid="CurrencyConverterMain">
-      <Row className="mb-3">
-        <Form.Group as={Col} xs={12} md={6}>
-          <Form.Label>Base Currency:</Form.Label>
+<Container>
+        <div
+          className="currencyConverterBlock"
+          data-testid="CurrencyConverterMain"
+        >
+          <Row className="mb-3">
+            <Form.Group as={Col} xs={12} md={6}>
+              <Form.Label>Base Currency:</Form.Label>
               {/* base currency selctor */}
-          {Array.isArray(availableCurrencies) && (
-            <Form.Select
-              onChange={(e) => setBaseCurrency(e.target.value)}
-              value={baseCurrency}
-              data-testid="BaseCurrencyDrop"
-            >
-              {availableCurrencies.map((currency) => (
-                <option key={currency} value={currency}>
-                  {currency}
-                </option>
-              ))}
-            </Form.Select>
-          )}
-        </Form.Group>
+              {Array.isArray(availableCurrencies) && (
+                <Form.Select
+                  onChange={(e) => setBaseCurrency(e.target.value)}
+                  value={baseCurrency}
+                  data-testid="BaseCurrencyDrop"
+                >
+                  {availableCurrencies.map((currency) => (
+                    <option key={currency} value={currency}>
+                      {currency}
+                    </option>
+                  ))}
+                </Form.Select>
+              )}
+            </Form.Group>
 
-        <Form.Group as={Col} xs={12} md={6}>
-          <Form.Label>Target Currency:</Form.Label>
-            {/* target currency selctor */}
-          {Array.isArray(availableCurrencies) && (
-            <Form.Select
-              onChange={(e) => setTargetCurrency(e.target.value)}
-              value={targetCurrency}
-              data-testid="TargetCurrencyDrop"
-            >
-              {availableCurrencies.map((currency) => (
-                <option key={currency} value={currency}>
-                  {currency}
-                </option>
-              ))}
-            </Form.Select>
-          )}
-        </Form.Group>
-      </Row>
-      <Row className="lgBtMargin">
-        <Col>
-        {/* currency exhcnage rate showing block */}
-          {exchangeRate !== null ? (
-            <Card body>
-            <h3 className="textCenter">
-            1 {baseCurrency} =<span data-testid="ExchangeRateSpan"> {exchangeRate} </span> {targetCurrency}
-            </h3></Card>
-          ) : (
-            <Spinner animation="border" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          )}
-        </Col>
-      </Row>
-    </div>
-    </Container>
+            <Form.Group as={Col} xs={12} md={6}>
+              <Form.Label>Target Currency:</Form.Label>
+              {/* target currency selctor */}
+              {Array.isArray(availableCurrencies) && (
+                <Form.Select
+                  onChange={(e) => setTargetCurrency(e.target.value)}
+                  value={targetCurrency}
+                  data-testid="TargetCurrencyDrop"
+                >
+                  {availableCurrencies.map((currency) => (
+                    <option key={currency} value={currency}>
+                      {currency}
+                    </option>
+                  ))}
+                </Form.Select>
+              )}
+            </Form.Group>
+          </Row>
+          <Row className="lgBtMargin">
+            <Col>
+              {/* currency exhcnage rate showing block */}
+              {exchangeRate !== null ? (
+                <Card body>
+                  <h3 className="textCenter">
+                    1 {baseCurrency} =
+                    <span data-testid="ExchangeRateSpan"> {exchangeRate} </span>{" "}
+                    {targetCurrency}
+                  </h3>
+                </Card>
+              ) : (
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              )}
+            </Col>
+          </Row>
+        </div>
+      </Container>
     </>
   );
 }

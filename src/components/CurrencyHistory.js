@@ -15,7 +15,6 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 
-
 Chart.register(
   CategoryScale,
   LinearScale,
@@ -43,7 +42,6 @@ export default function CurrencyHistory({ baseCurrency, targetCurrency }) {
       { date: "2023-10-06", rate: 2.2 },
       { date: "2023-10-07", rate: 2.3 },
       { date: "2023-10-08", rate: 2.4 },
-
     ]);
   }, [baseCurrency, targetCurrency, timeFrame]);
 
@@ -65,33 +63,36 @@ export default function CurrencyHistory({ baseCurrency, targetCurrency }) {
     <div>
       <div className="currencyHistoryContainer">
         <div className="currencyHistorySection">
-        <Row className="mb-3 ">
-        <Form.Group as={Col} xs={12} md={3}>
-          {/* filter graph */}
-            <Form.Select onChange={(e) => setTimeFrame(e.target.value)}>
-              <option value="7days">7 days</option>
-              <option value="1month">1 month</option>
-              <option value="6months">6 months</option>
-            </Form.Select>
-          </Form.Group>
-          <Col xs={12} md={9}>
-          <div className="chartContainer">
-            <Line
-              data={chartData}
-              options={{
-                maintainAspectRatio: false,
-                scales: { x: { type: "time" } },
-              }}
-            />
+          <h2 className="headerTextSecondary">Currency History Graph</h2>
+          <div className="currencyHistoryBlock">
+            <Row className="mb-3 ">
+              <Form.Group as={Col} xs={12} md={3}>
+                {/* filter graph */}
+                <Form.Select onChange={(e) => setTimeFrame(e.target.value)}>
+                  <option value="7days">7 days</option>
+                  <option value="1month">1 month</option>
+                  <option value="6months">6 months</option>
+                </Form.Select>
+              </Form.Group>
+              <Col xs={12} md={9}>
+                <div className="chartContainer">
+                  <Line
+                    data={chartData}
+                    options={{
+                      maintainAspectRatio: false,
+                      scales: { x: { type: "time" } },
+                    }}
+                  />
+                </div>
+              </Col>
+            </Row>
           </div>
-        </Col>
-        </Row>
         </div>
         <Row className="mb-3 ">
-        <Col xs={12}>
-          {/* filter table */}
-        <FilterTable />
-        </Col>
+          <Col xs={12}>
+            {/* filter table */}
+            <FilterTable />
+          </Col>
         </Row>
       </div>
     </div>
