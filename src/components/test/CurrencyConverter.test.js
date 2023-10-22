@@ -10,7 +10,7 @@ afterEach(() => {
 test('Currency converter component avilable', () => {
   render(<CurrencyConverter />); 
 
-  const divElement = screen.getByTestId('CurrencyConverterMain1'); 
+  const divElement = screen.getByTestId('CurrencyConverterMain'); 
 
   expect(divElement).toBeInTheDocument();
 });
