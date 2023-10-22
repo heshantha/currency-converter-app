@@ -4,6 +4,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Spinner from "react-bootstrap/Spinner";
+import Container from "react-bootstrap/Container";
 import Card from 'react-bootstrap/Card';
 export default function CurrencyConverter() {
   const [baseCurrency, setBaseCurrency] = useState("USD");
@@ -55,7 +56,9 @@ export default function CurrencyConverter() {
   }, [baseCurrency, targetCurrency]);
 
   return (
-    <div>
+    <>
+    <Container>
+    <div className='currencyConverterBlock' data-testid="CurrencyConverterMain">
       <Row className="mb-3">
         <Form.Group as={Col} xs={12} md={6}>
           <Form.Label>Base Currency:</Form.Label>
@@ -64,6 +67,7 @@ export default function CurrencyConverter() {
             <Form.Select
               onChange={(e) => setBaseCurrency(e.target.value)}
               value={baseCurrency}
+              data-testid="BaseCurrencyDrop"
             >
               {availableCurrencies.map((currency) => (
                 <option key={currency} value={currency}>
@@ -81,6 +85,7 @@ export default function CurrencyConverter() {
             <Form.Select
               onChange={(e) => setTargetCurrency(e.target.value)}
               value={targetCurrency}
+              data-testid="TargetCurrencyDrop"
             >
               {availableCurrencies.map((currency) => (
                 <option key={currency} value={currency}>
@@ -97,7 +102,7 @@ export default function CurrencyConverter() {
           {exchangeRate !== null ? (
             <Card body>
             <h3 className="textCenter">
-              1 {baseCurrency} = {exchangeRate} {targetCurrency}
+            1 {baseCurrency} =<span data-testid="ExchangeRateSpan"> {exchangeRate} </span> {targetCurrency}
             </h3></Card>
           ) : (
             <Spinner animation="border" role="status">
@@ -107,5 +112,7 @@ export default function CurrencyConverter() {
         </Col>
       </Row>
     </div>
+    </Container>
+    </>
   );
 }

@@ -3,10 +3,13 @@
     text-align: center;
 }
 
-.content {
+.currencyConverterBlock {
     box-shadow: 0 10px 20px 0 $gray;
     padding: 30px;
     border-radius: 15px;
+}
+.currencyHistoryContainer {
+
 }
 .form-label {
     font-size: $small;

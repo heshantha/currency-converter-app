@@ -63,7 +63,8 @@ export default function CurrencyHistory({ baseCurrency, targetCurrency }) {
 
   return (
     <div>
-      <div>
+      <div className="currencyHistoryContainer">
+        <div className="currencyHistorySection">
         <Row className="mb-3 ">
         <Form.Group as={Col} xs={12} md={3}>
           {/* filter graph */}
@@ -84,6 +85,9 @@ export default function CurrencyHistory({ baseCurrency, targetCurrency }) {
             />
           </div>
         </Col>
+        </Row>
+        </div>
+        <Row className="mb-3 ">
         <Col xs={12}>
           {/* filter table */}
         <FilterTable />
