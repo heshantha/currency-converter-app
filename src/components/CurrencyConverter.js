@@ -60,7 +60,7 @@ export default function CurrencyConverter() {
 <Container>
         <div
           className="currencyConverterBlock"
-          data-testid="CurrencyConverterMain1"
+          data-testid="CurrencyConverterMain"
         >
           <Row className="mb-3">
             <Form.Group as={Col} xs={12} md={6}>
