@@ -14,7 +14,7 @@ import FilterTable from "./filterTable";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
-
+import Container from "react-bootstrap/Container";
 Chart.register(
   CategoryScale,
   LinearScale,
@@ -52,8 +52,8 @@ export default function CurrencyHistory({ baseCurrency, targetCurrency }) {
         label: `Exchange rate for ${baseCurrency} to ${targetCurrency}`,
         data: historicalData.map((d) => d.rate),
         fill: false,
-        backgroundColor: "blue",
-        borderColor: "blue",
+        backgroundColor: "#330065",
+        borderColor: "#330065",
         tension: 0.1,
       },
     ],
@@ -61,6 +61,7 @@ export default function CurrencyHistory({ baseCurrency, targetCurrency }) {
 
   return (
     <div>
+        <Container fluid >
       <div className="currencyHistoryContainer">
         <div className="currencyHistorySection">
           <h2 className="headerTextSecondary">Currency History Graph</h2>
@@ -95,6 +96,7 @@ export default function CurrencyHistory({ baseCurrency, targetCurrency }) {
           </Col>
         </Row>
       </div>
+      </Container>
     </div>
   );
 }

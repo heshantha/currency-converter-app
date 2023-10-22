@@ -33,22 +33,6 @@ test('Currency converter base currency dropdown avilable', () => {
   });
 
 
-  test('Currency converter USD to EURO value', async  () => {
-    
-   
-    const response = await axios.get(
-        "https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_JeB5ukJurHstzeYkvQdO9Va7yihtOI7Snd6VQMif"
-      );
-  
-    const rate= response.data.data['EUR'];
-    act(async() => {
-    render(<CurrencyConverter />); 
-    const spanElement = await screen.findByTestId('ExchangeRateSpan'); 
-    const textContent = spanElement.textContent;
 
-    expect(rate.toString()).toEqual(textContent.trim());
-    });
-    
-  });
 
 

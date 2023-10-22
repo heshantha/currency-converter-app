@@ -1,66 +1,90 @@
 
-.textCenter {
-    text-align: center;
+::selection {
+    background: $white;   
+    color: $white;
+}
+::-moz-selection {
+    background: $white;    
+    color: $white;
 }
 
-.currencyConverterBlock {
-    box-shadow: 0 10px 20px 0 $gray;
-    padding: 30px;
-    border-radius: 15px;
+body {
+    background: $white; 
+    padding: 0;
+    margin: 0 auto;
+    font-family: 'Yantramanav', Arial, sans-serif;
+    color: $black; 
 }
-.currencyHistorySection {
-    margin: 40px;
-    .currencyHistoryBlock {
-        border: 1px solid $gray;
-        padding: 92px 30px 40px;
+.currencyConverterSection {
+    margin: 50px 0;
+    .currencyConverterBlock {
+        box-shadow: 0 10px 20px 0 $gray;
+        padding: 30px;
         border-radius: 15px;
     }
-}
-.filterTableSection {
-    background: #330065;
-    .headerTextSecondary {
-        color: #fff;
-        padding-top: 30px;
-    }
-    .filterTableBlock {
-    padding: 40px 30px 40px;
-    width: 100%;
-    max-width: 100%;
-    }
-}
-.form-label {
-    font-size: $small;
-}
-.headerText {
-    font-size: $large;
-    margin-bottom: 20px;
-    text-align: center;
-}
-.headerTextSecondary {
-    font-size: $large;
-    margin-bottom: 20px;
-    text-align: center;
-}
-.form-select {
-    font-size: $medium;
-}
-.mdBtMargin {
- margin-bottom: 15px;;
-}
-.lgBtMargin {
-    margin-bottom: 30px;;
-   }
-.chartContainer {
-    height: 500px;
-}
-.sortTableHeader {
-    .svg-inline--fa {
-        margin-left: 5px;
-        &.fa-sort-up {
-            top: 5px;
-            position: relative;
+    .currencyHistorySection {
+        margin: 40px 0;
+        .currencyHistoryBlock {
+            border: 1px solid $gray;
+            padding: 92px 30px 40px;
+            border-radius: 15px;
         }
-        
-      
+    }
+    .filterTableSection {
+        background: $purple;
+        .headerTextSecondary {
+            color: $white;
+            padding-top: 30px;
+        }
+        .filterTableBlock {
+        padding: 40px 30px 40px;
+        width: 100%;
+        max-width: 100%;
+        }
+    }
+    .form-label {
+        font-size: $small;
+    }
+    .headerText {
+        font-size: $large;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .headerTextSecondary {
+        font-size: $large;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .form-select {
+        font-size: $medium;
+    }
+    .mdBtMargin {
+     margin-bottom: 15px;;
+    }
+    .lgBtMargin {
+        margin-bottom: 30px;;
+       }
+    .chartContainer {
+        height: 500px;
+    }
+    .sortTableHeader {
+        .svg-inline--fa {
+            margin-left: 5px;
+            &.fa-sort-up {
+                top: 5px;
+                position: relative;
+            }
+            
+          
+        }
+    }
+    .textCenter {
+        text-align: center;
     }
 }
+
+
+
+
+
+
