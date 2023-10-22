@@ -60,9 +60,7 @@ body {
     .mdBtMargin {
      margin-bottom: 15px;;
     }
-    .lgBtMargin {
-        margin-bottom: 30px;;
-       }
+
     .chartContainer {
         height: 500px;
     }
@@ -79,6 +77,23 @@ body {
     }
     .textCenter {
         text-align: center;
+    }
+    .card-body {
+        background-color: $purple;
+        color: $white;
+    }
+    h1,h2 {
+        margin-bottom: 40px !important;
+        &:after {
+            background-color: $blue;
+            bottom: -10px;
+            height: 2px;
+            width: 100PX;
+            position: relative;
+            content: "";
+            display: block;
+            left: 47%;
+        }
     }
 }
 
