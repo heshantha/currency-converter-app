@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSortUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
 import Table from "react-bootstrap/Table";
+import SortingArrow from "./SortingArrow";
 
 // Default dummy data
 const DUMMY_DATA = [
@@ -44,19 +45,11 @@ export default function FilterTable({ historicalData = DUMMY_DATA }) {
             <tr>
               <th onClick={handleSort} className="sortTableHeader">
                 Date
-                {sortOrder === "asc" ? (
-                  <FontAwesomeIcon icon={faSortUp} />
-                ) : (
-                  <FontAwesomeIcon icon={faSortDown} />
-                )}
+                <SortingArrow sortOrder={sortOrder} />
               </th>
               <th onClick={handleSort} className="sortTableHeader">
                 Rate
-                {sortOrder === "asc" ? (
-                  <FontAwesomeIcon icon={faSortUp} />
-                ) : (
-                  <FontAwesomeIcon icon={faSortDown} />
-                )}
+                <SortingArrow sortOrder={sortOrder} />
               </th>
             </tr>
           </thead>
