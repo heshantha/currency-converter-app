@@ -28,7 +28,7 @@ export default function CurrencyHistory({ baseCurrency, targetCurrency }) {
   const [historicalData, setHistoricalData] = useState([]);
 
   useEffect(() => {
-    setHistoricalData([
+    const allData = [
       { date: "2023-09-26", rate: 0.4 },
       { date: "2023-09-27", rate: 0.3 },
       { date: "2023-09-28", rate: 0.1 },
@@ -41,8 +41,47 @@ export default function CurrencyHistory({ baseCurrency, targetCurrency }) {
       { date: "2023-10-05", rate: 2.1 },
       { date: "2023-10-06", rate: 2.2 },
       { date: "2023-10-07", rate: 2.3 },
-      { date: "2023-10-08", rate: 2.4 },
-    ]);
+      { date: "2023-10-18", rate: 3.4 },
+      { date: "2023-10-19", rate: 3.4 },
+      { date: "2023-10-20", rate: 3.1 },
+      { date: "2023-10-21", rate: 3.2 },
+      { date: "2023-10-22", rate: 3.3 },
+      { date: "2023-10-23", rate: 3.4 },
+      { date: "2023-5-18", rate: 1.4 },
+      { date: "2023-5-19", rate: 1.4 },
+      { date: "2023-5-20", rate: 1.1 },
+      { date: "2023-5-21", rate: 1.2 },
+      { date: "2023-5-22", rate: 1.3 },
+      { date: "2023-5-23", rate: 1.4 },
+    ];
+
+    let today = new Date();
+    let filteredData = [];
+
+    switch (timeFrame) {
+      case "7days":
+        const oneWeekAgo = today.setDate(today.getDate() - 7);
+        filteredData = allData.filter(
+          (d) => new Date(d.date).getTime() >= oneWeekAgo
+        );
+        break;
+      case "1month":
+        const oneMonthAgo = today.setMonth(today.getMonth() - 1);
+        filteredData = allData.filter(
+          (d) => new Date(d.date).getTime() >= oneMonthAgo
+        );
+        break;
+      case "6months":
+        const sixMonthsAgo = today.setMonth(today.getMonth() - 6);
+        filteredData = allData.filter(
+          (d) => new Date(d.date).getTime() >= sixMonthsAgo
+        );
+        break;
+      default:
+        filteredData = allData;
+    }
+
+    setHistoricalData(filteredData);
   }, [baseCurrency, targetCurrency, timeFrame]);
 
   const chartData = {
@@ -61,41 +100,40 @@ export default function CurrencyHistory({ baseCurrency, targetCurrency }) {
 
   return (
     <div>
-        <Container fluid >
-      <div className="currencyHistoryContainer">
-        <div className="currencyHistorySection">
-          <h2 className="headerTextSecondary">Currency History Graph</h2>
-          <div className="currencyHistoryBlock">
-            <Row className="mb-3 ">
-              <Form.Group as={Col} xs={12} md={3}>
-                {/* filter graph */}
-                <Form.Select onChange={(e) => setTimeFrame(e.target.value)}>
-                  <option value="7days">7 days</option>
-                  <option value="1month">1 month</option>
-                  <option value="6months">6 months</option>
-                </Form.Select>
-              </Form.Group>
-              <Col xs={12} md={9}>
-                <div className="chartContainer">
-                  <Line
-                    data={chartData}
-                    options={{
-                      maintainAspectRatio: false,
-                      scales: { x: { type: "time" } },
-                    }}
-                  />
-                </div>
-              </Col>
-            </Row>
+      <Container fluid>
+        <div className="currencyHistoryContainer">
+          <div className="currencyHistorySection">
+            <h2 className="headerTextSecondary">Currency History Graph</h2>
+            <div className="currencyHistoryBlock">
+              <Row className="mb-3 ">
+                <Form.Group as={Col} xs={12} md={3}>
+                  <Form.Select onChange={(e) => setTimeFrame(e.target.value)}>
+                    <option value="7days">7 days</option>
+                    <option value="1month">1 month</option>
+                    <option value="6months">6 months</option>
+                  </Form.Select>
+                </Form.Group>
+                <Col xs={12} md={9}>
+                  <div className="chartContainer">
+                    <Line
+                      data={chartData}
+                      options={{
+                        maintainAspectRatio: false,
+                        scales: { x: { type: "time" } },
+                      }}
+                    />
+                  </div>
+                </Col>
+              </Row>
+            </div>
           </div>
+          <Row className="mb-3 ">
+            <Col xs={12}>
+              {/* filter table */}
+              <FilterTable />
+            </Col>
+          </Row>
         </div>
-        <Row className="mb-3 ">
-          <Col xs={12}>
-            {/* filter table */}
-            <FilterTable />
-          </Col>
-        </Row>
-      </div>
       </Container>
     </div>
   );
